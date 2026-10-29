@@ -42,6 +42,19 @@ jobs:
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/billing-app:${{ github.run_id }}
           ${{ secrets.DOCKERHUB_USERNAME }}/billing-app:latest
+#    # STAGE 5: Deployment (Kubernetes Orchestration)
+#    - name: (5) Setup Kubernetes Cluster Configuration
+#      uses: azure/k8s-set-context@v3
+#      with:
+#        method: kubeconfig
+#        kubeconfig: ${{ secrets.KUBECONFIG }}
+#
+#    - name: (5) Dynamically Inject Unique Tag & Deploy
+#      run: |
+#        sed -i 's/DOCKERHUB_USERNAME/${{ secrets.DOCKERHUB_USERNAME }}/g' k8s/deployment.yaml
+#        sed -i 's/__IMAGE_TAG__/${{ github.run_id }}/g' k8s/deployment.yaml
+#        kubectl apply -f k8s/deployment.yaml --validate=false
+#        kubectl apply -f k8s/service.yaml --validate=false
 
     
     - name: (5) Setup Kubernetes Cluster Configuration
